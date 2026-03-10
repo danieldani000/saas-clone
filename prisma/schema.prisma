@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RunStatus {
+  queued
+  running
+  done
+  failed
+}
+
+model User {
+  id        String            @id @default(cuid())
+  email     String            @unique
+  createdAt DateTime          @default(now())
+  members   WorkspaceMember[]
+}
+
+model Workspace {
+  id               String            @id @default(cuid())
+  name             String
+  stripeCustomerId String?           @unique
+  createdAt        DateTime          @default(now())
+  members          WorkspaceMember[]
+  brandKit         BrandKit?
+  agentRuns        AgentRun[]
+  outputs          Output[]
+  usageEvents      UsageEvent[]
+  subscriptions    Subscription[]
+  apiKeys          ApiKey[]
+}
+model WorkspaceMember {
+  id          String    @id @default(cuid())
+  workspaceId String
+  userId      String
+  role        String    @default("member")
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+}
+
+model BrandKit {
+  id             String    @id @default(cuid())
+  workspaceId    String    @unique
+  brandName      String
+  tone           String
+  forbiddenWords String[]
+  primaryColor   String?
+  secondaryColor String?
+  guidelines     String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  workspace      Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model Agent {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String
+  inputSchema Json
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  runs        AgentRun[]
+}
+
+model AgentRun {
+  id           String         @id @default(cuid())
+  workspaceId  String
+  agentId      String
+  status       RunStatus      @default(queued)
+  input        Json
+  output       Json?
+  error        String?
+  startedAt    DateTime?
+  finishedAt   DateTime?
+  createdAt    DateTime       @default(now())
+  workspace    Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  agent        Agent          @relation(fields: [agentId], references: [id])
+  steps        AgentRunStep[]
+  outputs      Output[]
+}
+
+model AgentRunStep {
+  id         String   @id @default(cuid())
+  runId      String
+  stepKey    String
+  status     String
+  payload    Json?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  agentRun   AgentRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+}
+
+model Output {
+  id          String     @id @default(cuid())
+  workspaceId String
+  runId       String
+  kind        String
+  uri         String
+  metadata    Json?
+  version     Int        @default(1)
+  createdAt   DateTime   @default(now())
+  deletedAt   DateTime?
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  run         AgentRun   @relation(fields: [runId], references: [id], onDelete: Cascade)
+}
+
+model UsageEvent {
+  id          String    @id @default(cuid())
+  workspaceId String
+  runId       String?
+  metric      String
+  value       Int
+  createdAt   DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model Subscription {
+  id                  String    @id @default(cuid())
+  workspaceId         String
+  provider            String    @default("stripe")
+  providerCustomerId  String?
+  providerPlanId      String?
+  status              String    @default("inactive")
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  workspace           Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model ApiKey {
+  id          String    @id @default(cuid())
+  workspaceId String
+  name        String
+  keyPrefix   String
+  keyHash     String    @unique
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model Trigger {
+  id          String    @id @default(cuid())
+  workspaceId String
+  type        String
+  agentSlug   String
+  payload     Json
+  runId       String?
+  status      String    @default("received")
+  createdAt   DateTime  @default(now())
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  workspaceId String?
+  apiKeyId    String?
+  level       String
+  event       String
+  data        Json?
+  createdAt   DateTime @default(now())
+}
