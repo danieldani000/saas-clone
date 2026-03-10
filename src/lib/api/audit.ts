@@ -17,7 +17,7 @@ export async function writeAudit(params: {
       event: params.event,
       workspaceId: params.workspaceId,
       apiKeyId: params.apiKeyId,
-      data: params.data || {}
+      data: (params.data || {}) as object
     }
   });
 }
