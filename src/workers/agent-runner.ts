@@ -17,7 +17,7 @@ const worker = new Worker<RunJob>(
 
     try {
       await db.agentRunStep.create({
-        data: { runId: run.id, stepKey: "execute", status: "running", payload: null }
+        data: { runId: run.id, stepKey: "execute", status: "running", payload: undefined }
       });
 
       const result = await executeAgent(run.agent.slug, (run.input as Record<string, unknown>) || {});
