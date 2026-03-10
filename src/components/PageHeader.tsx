@@ -3,7 +3,8 @@ type Action = { label: string; href?: string; primary?: boolean };
 export function PageHeader({ title, subtitle, actions = [] }: { title: string; subtitle?: string; actions?: Action[] }) {
   return (
     <header className="pageHeader">
-      <div>
+      <div className="pageHeaderMeta">
+        <span className="kicker">Workspace</span>
         <h1 className="pageTitle" style={{ marginBottom: 4 }}>{title}</h1>
         {subtitle && <p className="muted" style={{ margin: 0 }}>{subtitle}</p>}
       </div>

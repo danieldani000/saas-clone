@@ -32,15 +32,13 @@ export default async function DashboardPage() {
 
         <section className="section" id="quick">
           <div className="sectionHead">
-            <h2 style={{ margin: 0 }}>Welcome to Creative Ops</h2>
-            <span className="muted">No-code visual marketing workflows</span>
+            <h2>Welcome to Creative Ops</h2>
+            <span className="tag">No-code visual marketing workflows</span>
           </div>
-          <p className="muted" style={{ marginTop: 0 }}>Build and run AI agents for text, image, and video creation in one workspace.</p>
-          <div style={{ border: "1px solid #e8e8ee", borderRadius: 12, background: "#f7f7fb", height: 260, display: "grid", placeItems: "center", marginBottom: 12 }}>
-            <div style={{ textAlign: "center" }}>
-              <div style={{ width: 72, height: 72, borderRadius: 999, background: "#fff", border: "1px solid #ddd", display: "grid", placeItems: "center", margin: "0 auto 8px" }}>▶</div>
-              <div className="muted">Product walkthrough video</div>
-            </div>
+          <p className="muted">Build and run AI agents for text, image, and video creation in one workspace.</p>
+          <div className="emptyState" style={{ marginBottom: 12 }}>
+            <h3>Product walkthrough</h3>
+            <p>Start with quick templates then customize in studio.</p>
           </div>
           <QuickTemplateCards templates={agents.map((a) => ({ id: a.id, name: a.name, description: a.description, slug: a.slug }))} />
         </section>

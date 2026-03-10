@@ -6,7 +6,10 @@ type RunWithAgent = AgentRun & { agent: Agent };
 export function RecentRunsGrid({ runs }: { runs: RunWithAgent[] }) {
   return (
     <section className="section" id="runs">
-      <div className="sectionHead"><h2 style={{ margin: 0 }}>Recent runs</h2></div>
+      <div className="sectionHead">
+        <h2>Recent runs</h2>
+        <span className="muted">Latest generation executions</span>
+      </div>
 
       {runs.length === 0 ? (
         <div className="emptyState">

@@ -1,12 +1,21 @@
 import Link from "next/link";
+import "@/components/dashboard.css";
 
 export default function HomePage() {
   return (
-    <main style={{ padding: 24, fontFamily: "sans-serif", display: "grid", gap: 12 }}>
-      <h1>Creative Ops Clone V1</h1>
-      <p>Functional clone scaffold (agents, runs, outputs, usage).</p>
-      <Link href="/dashboard">Open dashboard</Link>
-      <Link href="/onboarding">Start onboarding</Link>
+    <main className="landing">
+      <section className="landingHero">
+        <p className="kicker">Creative Ops Platform</p>
+        <h1 className="landingTitle">Build, run and scale AI creative workflows.</h1>
+        <p className="landingCopy">
+          Premium workspace for generation, orchestration and asset ops. Keep your team fast with one
+          unified dashboard for templates, runs, billing and studio production.
+        </p>
+        <div className="landingActions">
+          <Link href="/dashboard" className="btnPrimary">Open dashboard</Link>
+          <Link href="/onboarding" className="btnGhost">Start onboarding</Link>
+        </div>
+      </section>
     </main>
   );
 }

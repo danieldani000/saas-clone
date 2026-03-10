@@ -8,7 +8,11 @@ export default function StudioPage() {
   return (
     <main className="studioShellWrap">
       <div style={{ padding: "16px 16px 0" }}>
-        <PageHeader title="Studio" subtitle="Build multi-step AI workflows for ads, UGC, and product creatives." actions={[{ label: "Assets", href: "/assets" }, { label: "Run workflow", primary: true }]} />
+        <PageHeader
+          title="Studio"
+          subtitle="Build multi-step AI workflows for ads, UGC, and product creatives."
+          actions={[{ label: "Assets", href: "/assets" }, { label: "Run workflow", primary: true }]}
+        />
       </div>
       <StudioToolbar />
       <div className="studioShell">
@@ -22,7 +26,7 @@ export default function StudioPage() {
         <section className="studioCanvas">
           <div className="node textNode">
             <h4>Text prompt</h4>
-            <p>Write your creative prompt here...</p>
+            <p className="muted">Write your creative prompt here...</p>
             <button className="miniRun">Run</button>
           </div>
           <div className="node imageNode">

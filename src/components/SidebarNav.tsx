@@ -4,9 +4,9 @@ export function SidebarNav() {
       <div className="brand"><span className="dot" /> Creative Ops</div>
       <div className="navTitle">Workspace</div>
       <nav className="nav">
-        <a className="active" href="#overview">Home</a>
+        <a className="active" href="#overview">Overview</a>
         <a href="#quick">Quick create</a>
-        <a href="#runs">Runs</a>
+        <a href="#runs">Recent runs</a>
         <a href="#billing">Billing</a>
       </nav>
       <div className="navTitle">Resources</div>
