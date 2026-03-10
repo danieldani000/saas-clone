@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import "@/components/dashboard.css";
 import { StudioToolbar } from "@/components/StudioToolbar";
 import { StudioOutputPanel } from "@/components/StudioOutputPanel";

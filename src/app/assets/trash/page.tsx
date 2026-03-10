@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import "@/components/dashboard.css";
 import { db } from "@/lib/db";
 import { DeletedAssetRow } from "@/components/DeletedAssetRow";

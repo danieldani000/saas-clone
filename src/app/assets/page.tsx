@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import "@/components/dashboard.css";
 import { AssetsToolbar } from "@/components/AssetsToolbar";
 import { AssetCard } from "@/components/AssetCard";

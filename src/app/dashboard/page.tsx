@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { db } from "@/lib/db";
 import { RunForm } from "@/components/RunForm";
 import { AuditLogPanel } from "@/components/AuditLogPanel";
