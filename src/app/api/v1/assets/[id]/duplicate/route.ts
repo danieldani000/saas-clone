@@ -12,7 +12,7 @@ export async function POST(_: NextRequest, { params }: { params: { id: string } 
       runId: source.runId,
       kind: source.kind,
       uri: source.uri,
-      metadata: source.metadata,
+      metadata: source.metadata ?? undefined,
       version: source.version + 1
     }
   });
